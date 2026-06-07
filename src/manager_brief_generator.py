@@ -1,8 +1,8 @@
-from analysis_engine import analyse_category
-from root_cause_engine import identify_root_cause
-from recommendation_engine import recommend_actions
-from llm_commentary_generator import generate_llm_commentary
-from executive_summary_generator import generate_executive_summary
+from src.analysis_engine import analyse_category
+from src.root_cause_engine import identify_root_cause
+from src.recommendation_engine import recommend_actions
+from src.llm_commentary_generator import generate_llm_commentary
+from src.executive_summary_generator import generate_executive_summary
 
 
 def generate_manager_brief(df, manager_email: str) -> str:

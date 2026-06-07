@@ -52,3 +52,33 @@ def ask(req: func.HttpRequest) -> func.HttpResponse:
             status_code=500,
             mimetype="application/json"
         )
+@app.route(route="monday-brief")
+def monday_brief(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info("Monday Brief request received")
+
+    try:
+        from src.data_loader import load_trading_metrics
+        from src.manager_brief_generator import generate_manager_brief
+
+        req_body = req.get_json()
+        manager_email = req_body.get("manager_email", "sarah.manager@example.com")
+
+        df = load_trading_metrics("data/trading_metrics.csv")
+        brief = generate_manager_brief(df, manager_email)
+
+        return func.HttpResponse(
+            json.dumps({
+                "manager_email": manager_email,
+                "brief": brief
+            }),
+            status_code=200,
+            mimetype="application/json"
+        )
+
+    except Exception as e:
+        logging.exception("Monday Brief failed")
+        return func.HttpResponse(
+            json.dumps({"error": str(e)}),
+            status_code=500,
+            mimetype="application/json"
+        )
