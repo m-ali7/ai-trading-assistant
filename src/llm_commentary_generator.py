@@ -6,7 +6,6 @@ load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-
 def generate_llm_commentary(analysis: dict, root_cause: dict, recommendations: dict) -> str:
     """
     Uses GPT to turn grounded trading facts into executive-friendly commentary.
